@@ -1,6 +1,6 @@
 import z from "zod";
 
-export const signupValidation = z.object({
+export const register = z.object({
   body: z
     .object({
       email: z
@@ -17,7 +17,6 @@ export const signupValidation = z.object({
         })
         .min(6, "Password must be at least 6 characters"),
       confirmPassword: z.string().min(6),
-      isAdmin: z.boolean().optional(),
     })
     .superRefine(({ confirmPassword, password }, ctx) => {
       if (confirmPassword !== password) {
@@ -28,6 +27,8 @@ export const signupValidation = z.object({
       }
     }),
 });
+
+export type registerSchema = z.infer<typeof register>["body"];
 
 export const signIn = z.object({
   body: z.object({
