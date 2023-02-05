@@ -37,7 +37,7 @@ export const sendInvite = async (
     };
   }
   if (plan.buddies.length < 5) {
-    await db.invites.create({
+    const invite = await db.invites.create({
       data: {
         planId,
         buddyId: buddy.id,
@@ -45,7 +45,7 @@ export const sendInvite = async (
       },
     });
     const { BASE_URL, PORT } = CONSTANTS;
-    const planLink = `http://${BASE_URL}:${PORT}/api/v1/plans/${planId}`;
+    const planLink = `http://${BASE_URL}:${PORT}/api/v1/invite/${invite.id}`;
 
     sendMail({
       email: buddy.email,
@@ -62,4 +62,30 @@ export const sendInvite = async (
       message: `${buddy.name} has been invited.`,
     };
   }
+  throw {
+    statusCode: 400,
+    message: "buddies invitations exceeded 5",
+  };
+};
+
+export const viewInvite = async (userId: string, inviteId: string) => {
+  const invite = await db.invites.findFirst({
+    where: {
+      id: inviteId,
+      buddyId: userId,
+    },
+    include: {
+      plan: true,
+    },
+  });
+  if (!invite) {
+    throw {
+      statusCode: 404,
+      message: "Invitation not found",
+    };
+  }
+  return {
+    statusCode: 200,
+    message: invite,
+  };
 };
