@@ -96,5 +96,6 @@ export const verifyEmail = async (token: string) => {
       isVerified: true,
     },
   });
-  return { statusCode: 200, message: "User email has been verified" };
+  
+  return { statusCode: 200, message: "User email has been verified and your account is created" };
 };
