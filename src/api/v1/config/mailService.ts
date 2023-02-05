@@ -3,14 +3,16 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  service: "gmail",
+  host: "sandbox.smtp.mailtrap.io",
+  port: process.env.MAILER_PORT as unknown as number,
+  // service: "gmail",
   auth: {
-    type: "OAuth2",
+    // type: "OAuth2",
     user: process.env.MAILER_USERNAME,
-    clientId: process.env.OAUTH_CLIENTID,
-    clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.OAUTH_REFRESH_TOKEN,
+    pass: process.env.MAILER_PASSWORD,
+    // clientId: process.env.OAUTH_CLIENTID,
+    // clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    // refreshToken: process.env.OAUTH_REFRESH_TOKEN,
   },
 });
 

@@ -1,6 +1,8 @@
+import { CONSTANTS } from "../config/CONSTANTS";
 import db from "../config/dbClient";
 import { generateAccessToken } from "../utils/generateToken";
 import { decryptPassword, encryptPassword } from "../utils/hashPassword";
+import sendMail from "../utils/sendMail";
 import { registerSchema } from "../validationSchema/user";
 
 export const signIn = async (email: string, password: string) => {
@@ -20,6 +22,7 @@ export const signIn = async (email: string, password: string) => {
     if (!match) {
       throw { statusCode: 403, message: "Password is not correct, try again" };
     }
+
     return {
       statusCode: 200,
       message: { token: generateAccessToken(user.id) },
@@ -52,8 +55,22 @@ export const register = async (payload: registerSchema) => {
     },
   });
 
+  const token = generateAccessToken(response.id);
+  const { BASE_URL, PORT } = CONSTANTS;
+  const verifyLink = `http://${BASE_URL}:${PORT}/api/v1/user/verify/${token}`;
+
+  sendMail({
+    email: response.email,
+    subject: "Registration Successful",
+    message: `
+      Hi <b>${response.name}</b>
+    
+      <p>Thank you for signing up to SavingBuddies
+      Please click <a href="${verifyLink}">here</a> to verify your email.</p>          
+      `,
+  });
   return {
     statusCode: 200,
-    message: { token: generateAccessToken(response.id) },
+    message: { token, verified: response.isVerified },
   };
 };

@@ -4,9 +4,10 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import logger from "morgan";
 import Routes from "./api/v1/routes/index";
+import { CONSTANTS } from "./api/v1/config/CONSTANTS";
 
 dotenv.config();
-const PORT = process.env.PORT;
+const { PORT } = CONSTANTS;
 
 const app = express();
 
@@ -30,6 +31,6 @@ app.use((_req, res) =>
     .json({ status: "Not Found", message: "This route does not exist" })
 );
 
-app.listen(PORT || 3000, () => {
+app.listen(Number(PORT) || 3000, () => {
   console.log(`Server started on PORT ${PORT} 🚀 `);
 });

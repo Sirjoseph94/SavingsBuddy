@@ -12,12 +12,13 @@ async function sendMail(data: body) {
     from: "hi@savingbuddy.com",
     to: email,
     subject: subject,
-    text: message,
+    html: message
   };
   try {
-    transporter.sendMail(body);
+   return transporter.sendMail(body);
   } catch (error) {
     console.error(error);
+    return
   }
 }
 
