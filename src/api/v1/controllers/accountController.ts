@@ -13,3 +13,15 @@ export const create = async (req: userRequest, res: Response) => {
     return failed(res, error.statusCode, error.message);
   }
 }
+
+export const update = async (req: userRequest, res: Response) => {
+  try {
+    const {user_id} = req.user
+    const {amount} = req.body
+    const response = await Service.updateAccount(user_id, amount)
+    return success(res, response.statusCode, response.message);
+  } catch (error:any) {
+    console.error(error);
+    return failed(res, error.statusCode, error.message);
+  }
+}
