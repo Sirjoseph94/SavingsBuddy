@@ -5,6 +5,7 @@ import { decryptPassword, encryptPassword } from "../utils/hashPassword";
 import sendMail from "../utils/sendMail";
 import { registerSchema } from "../validationSchema/user";
 import jwt from "jsonwebtoken";
+import { createAccount } from "./accountService";
 
 export const signIn = async (email: string, password: string) => {
   try {
@@ -96,5 +97,10 @@ export const verifyEmail = async (token: string) => {
       isVerified: true,
     },
   });
-  return { statusCode: 200, message: "User email has been verified" };
+
+  await createAccount(response.id);
+  return {
+    statusCode: 200,
+    message: "User email has been verified and your account is created",
+  };
 };
