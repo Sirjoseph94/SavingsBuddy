@@ -16,7 +16,9 @@ export const register = z.object({
           required_error: "Enter valid password",
         })
         .min(6, "Password must be at least 6 characters"),
-      confirmPassword: z.string().min(6),
+      confirmPassword: z.string({
+        required_error: "Confirm password is required"
+      }).min(6),
     })
     .superRefine(({ confirmPassword, password }, ctx) => {
       if (confirmPassword !== password) {

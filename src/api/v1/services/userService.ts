@@ -25,7 +25,7 @@ export const signIn = async (email: string, password: string) => {
       message: { token: generateAccessToken(user.id) },
     };
   } catch (error) {
-    return {
+    throw {
       statusCode: 500,
       message: { "Internal Server Error": error },
     };

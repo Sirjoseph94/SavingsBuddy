@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
+import logger from "morgan";
+import Routes from "./api/v1/routes/index";
 
 dotenv.config();
 const PORT = process.env.PORT;
@@ -10,8 +12,11 @@ const app = express();
 
 app.use(cors());
 app.use(helmet());
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+Routes(app);
 
 app.get("/", (_req, res) => {
   res
