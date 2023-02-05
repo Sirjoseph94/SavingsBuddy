@@ -4,6 +4,7 @@ import { generateAccessToken } from "../utils/generateToken";
 import { decryptPassword, encryptPassword } from "../utils/hashPassword";
 import sendMail from "../utils/sendMail";
 import { registerSchema } from "../validationSchema/user";
+import jwt from "jsonwebtoken";
 
 export const signIn = async (email: string, password: string) => {
   try {
@@ -73,4 +74,27 @@ export const register = async (payload: registerSchema) => {
     statusCode: 200,
     message: { token, verified: response.isVerified },
   };
+};
+
+export const verifyEmail = async (token: string) => {
+  const decoded = jwt.verify(token, process.env.AUTH_SECRET as string);
+  const id = decoded as unknown as Record<string, string>;
+  const user = await db.user.findUnique({ where: { id: id.user_id } });
+
+  if (!user) {
+    throw {
+      statusCode: 404,
+      message: "user not found",
+    };
+  }
+
+  const response = await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      isVerified: true,
+    },
+  });
+  return { statusCode: 200, message: "User email has been verified" };
 };

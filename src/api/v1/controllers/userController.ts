@@ -24,3 +24,14 @@ export const register = async (req: Request, res: Response) => {
     return failed(res, error.statusCode, error.message);
   }
 };
+
+export const verify = async (req: Request, res: Response) => {
+  try {
+    const {token} = req.params
+    const response = await Service.verifyEmail(token)
+    return success(res, response.statusCode, response.message);
+  } catch (error:any) {
+     console.error(error);
+     return failed(res, error.statusCode, error.message);
+  }
+}
