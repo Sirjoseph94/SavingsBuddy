@@ -9,6 +9,7 @@ import {
 
 const router = Router();
 
+router.get("/", auth, Controller.getAll);
 router.get("/:inviteId", auth, Controller.view);
 router.post("/", auth, validate(sendInviteSchema), Controller.create);
 router.post("/:inviteId", auth, validate(confirmInviteSchema), Controller.confirm);

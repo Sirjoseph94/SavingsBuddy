@@ -126,3 +126,14 @@ export const confirm = async (
     message: `You declined to join ${response.plan}`,
   };
 };
+
+export const allInvites = async (buddyId: string) => {
+  const response = await db.invites.findMany({
+    where: { buddyId },
+    include: { plan: true },
+  });
+  return {
+    statusCode: 200,
+    message: response,
+  };
+};
