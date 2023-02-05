@@ -89,3 +89,40 @@ export const viewInvite = async (userId: string, inviteId: string) => {
     message: invite,
   };
 };
+
+export const confirm = async (
+  userId: string,
+  inviteId: string,
+  feedback: boolean
+) => {
+  const invitee = await db.invites.findFirst({
+    where: { buddyId: userId, id: inviteId },
+  });
+  if (!invitee) {
+    throw {
+      statusCode: 401,
+      message: "You are not authorized to perform this operation",
+    };
+  }
+  const response = await db.invites.update({
+    where: {
+      id: inviteId,
+    },
+    include: {
+      plan: true,
+    },
+    data: {
+      isAccepted: feedback,
+    },
+  });
+  if (response.isAccepted) {
+    return {
+      statusCode: 200,
+      message: `You accepted to join ${response.plan}`,
+    };
+  }
+  return {
+    statusCode: 200,
+    message: `You declined to join ${response.plan}`,
+  };
+};

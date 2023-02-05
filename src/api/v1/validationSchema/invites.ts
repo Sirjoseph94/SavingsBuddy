@@ -7,7 +7,20 @@ export const sendInviteSchema = z.object({
         required_error: "Buddy's email is required",
       })
       .email(),
-    planId: z.string({
+    inviteId: z.string({
+      required_error: "PlanId is required",
+    }),
+  }),
+});
+
+export const confirmInviteSchema = z.object({
+  body: z.object({
+    feedback: z.boolean({
+      required_error: "Accept the invite? true/false",
+    }),
+  }),
+  params: z.object({
+    inviteId: z.string({
       required_error: "PlanId is required",
     }),
   }),
