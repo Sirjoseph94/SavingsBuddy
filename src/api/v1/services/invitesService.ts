@@ -4,18 +4,10 @@ import sendMail from "../utils/sendMail";
 
 export const sendInvite = async (
   userId: string,
-  buddyId: string,
+  buddyEmail: string,
   planId: string
 ) => {
-  const plan = await db.plan.findUnique({
-    where: {
-      id: planId,
-    },
-    include: {
-      buddies: true,
-    },
-  });
-  const buddy = await db.user.findUnique({ where: { id: buddyId } });
+  const buddy = await db.user.findUnique({ where: { email: buddyEmail } });
   if (!buddy) {
     throw {
       statusCode: 404,
@@ -23,17 +15,32 @@ export const sendInvite = async (
         "Buddy not found, ask them to register on the platform to join you to save",
     };
   }
+  const plan = await db.plan.findFirst({
+    where: {
+      id: planId,
+    },
+    include: {
+      buddies: true,
+    },
+  });
+
   if (!plan) {
     throw {
       statusCode: 404,
       message: "Plan does not exist, create a plan",
     };
   }
+  if (plan.hostId !== userId) {
+    throw {
+      statusCode: 401,
+      message: "You are not authorized to perform this operation",
+    };
+  }
   if (plan.buddies.length < 5) {
     await db.invites.create({
       data: {
         planId,
-        buddyId,
+        buddyId: buddy.id,
         isAccepted: false,
       },
     });
