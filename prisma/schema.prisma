@@ -20,6 +20,7 @@ model User {
   account  Account?
   invites  Invites[]
   txRecord TxRecords[]
+  plans Plan[]
 }
 
 model Account {
@@ -36,10 +37,9 @@ model Account {
 model Plan {
   id               String   @id @default(uuid())
   name             String
-  host             String
   target           Decimal? @db.Decimal(15, 2)
   current_balance  Decimal  @default(0.00) @db.Decimal(15, 2)
-  saving_frequency String
+  saving_frequency Frequency
   start_date       DateTime
   end_date         DateTime
 
@@ -48,6 +48,9 @@ model Plan {
 
   user_account Account @relation(fields: [accountId], references: [id])
   accountId    String
+
+  host User @relation(fields: [hostId], references: [id])
+  hostId    String
 
   buddies   Invites[]
   txRecords TxRecords[]
@@ -77,4 +80,11 @@ model TxRecords {
   planId String
 
   createdAt DateTime @default(now())
+}
+
+enum Frequency {
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
 }
