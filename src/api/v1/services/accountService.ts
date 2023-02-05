@@ -1,6 +1,13 @@
 import db from "../config/dbClient";
 
 export const createAccount = async (userId: string) => {
+  const user = await db.user.findUnique({ where: { id: userId } });
+  if (!user?.isVerified) {
+    throw {
+      statusCode: 401,
+      message: "Please verify your email to create an account",
+    };
+  }
   const exist = await db.account.findFirst({
     where: {
       userId,
