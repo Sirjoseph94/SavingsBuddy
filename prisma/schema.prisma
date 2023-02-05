@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -17,14 +17,14 @@ model User {
 
   createdAt DateTime @default(now())
 
-  account Account?
-  invites Invites[]
+  account  Account?
+  invites  Invites[]
   txRecord TxRecords[]
 }
 
 model Account {
   id        String   @id @default(uuid())
-  balance   Decimal  @default(0.00) @db.Money
+  balance   Decimal  @default(0.00) @db.Decimal(15, 2)
   createdAt DateTime @default(now())
 
   user   User   @relation(fields: [userId], references: [id])
@@ -37,8 +37,8 @@ model Plan {
   id               String   @id @default(uuid())
   name             String
   host             String
-  target           Decimal? @db.Money
-  current_balance  Decimal  @default(0.00) @db.Money
+  target           Decimal? @db.Decimal(15, 2)
+  current_balance  Decimal  @default(0.00) @db.Decimal(15, 2)
   saving_frequency String
   start_date       DateTime
   end_date         DateTime
@@ -49,7 +49,7 @@ model Plan {
   user_account Account @relation(fields: [accountId], references: [id])
   accountId    String
 
-  buddies Invites[]
+  buddies   Invites[]
   txRecords TxRecords[]
 }
 
@@ -67,14 +67,14 @@ model Invites {
 
 model TxRecords {
   id          String  @id @default(uuid())
-  amount      Decimal @db.Money
+  amount      Decimal @db.Decimal(15, 2)
   description String?
 
-  sender User @relation(fields: [senderId], references: [id])
+  sender   User   @relation(fields: [senderId], references: [id])
   senderId String
 
-  plan Plan @relation(fields: [planId], references: [id])
-  planId   String
+  plan   Plan   @relation(fields: [planId], references: [id])
+  planId String
 
   createdAt DateTime @default(now())
 }
