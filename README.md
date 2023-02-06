@@ -20,7 +20,9 @@
 
   
 ## Installation
-run `yarn install`
+- Rename `example.env` to `.env` and fill the proper values 
+- run `yarn build && yarn start`
+  NB. Database must be MySQL
 
 
   ## How to Run
