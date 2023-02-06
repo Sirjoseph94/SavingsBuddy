@@ -14,6 +14,7 @@
     "start": "node dist/index.js",
     "watch": "parcel watch",
     "build": "parcel build",
+    "deploy": "yarn build && npx prisma migrate deploy",
     "dev": "nodemon --esm  src/index.ts"
   },
   "dependencies": {
@@ -25,7 +26,6 @@
     "helmet": "^6.0.1",
     "jsonwebtoken": "^9.0.0",
     "nodemailer": "^6.9.1",
-    "morgan": "^1.10.0",
     "zod": "^3.20.2"
   },
   "devDependencies": {
@@ -36,13 +36,10 @@
     "@types/jsonwebtoken": "^9.0.1",
     "@types/morgan": "^1.9.4",
     "@types/nodemailer": "^6.4.7",
-    "cli-readme-gen": "^1.1.2",
     "debug": "^4.3.4",
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
     "parcel": "^2.8.3",
     "prisma": "^4.9.0",
-    "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   }
 }
