@@ -30,12 +30,23 @@ run `yarn build && yarn start`
 ## Description
 simple personal finance API that encourages saving culture among a group of friends(buddies)
  
+ ## Tech Stack
+ - ExpressJs
+ - TypeScript
+ - MySQL
+ - Prisma ORM
+ - SwaggerUi
 
  ## Deployment
  `https://savingsbuddy.up.railway.app/`
+ 
+ 
+ ## API Documentation
+`https://savingsbuddy.up.railway.app/api_doc/v1/`
+
 
 ## Credits
-  -Sirjoseph94
+  - Sirjoseph94
 
 
 ## License
