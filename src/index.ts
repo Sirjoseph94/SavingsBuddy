@@ -29,6 +29,6 @@ app.use((_req, res) =>
     .json({ status: "Not Found", message: "This route does not exist" })
 );
 
-app.listen(Number(PORT) || 3000, () => {
+app.listen(Number(PORT), () => {
   console.log(`Server started on PORT ${PORT} 🚀 `);
 });

@@ -31,6 +31,9 @@ run `yarn build && yarn start`
 simple personal finance API that encourages saving culture among a group of friends(buddies)
  
 
+ ## Deployment
+ `https://savingsbuddy.up.railway.app/`
+
 ## Credits
   -Sirjoseph94
 
