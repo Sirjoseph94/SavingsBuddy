@@ -20,13 +20,14 @@
 
   
 ## Installation
-- Rename `example.env` to `.env` and fill the proper values 
-- run `yarn build && yarn start`
-  NB. Database must be MySQL
+- Rename `example.env` to `.env` and fill the proper values
+ NB. Database must be MySQL 
+- run `yarn install`
+ 
 
 
   ## How to Run
-run `yarn build && yarn start`
+  run `yarn deploy && yarn start`
 
 
 ## Description
