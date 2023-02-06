@@ -7,7 +7,7 @@ export const sendInviteSchema = z.object({
         required_error: "Buddy's email is required",
       })
       .email(),
-    inviteId: z.string({
+    planId: z.string({
       required_error: "PlanId is required",
     }),
   }),
@@ -22,6 +22,14 @@ export const confirmInviteSchema = z.object({
   params: z.object({
     inviteId: z.string({
       required_error: "PlanId is required",
+    }),
+  }),
+});
+
+export const inviteIdParams = z.object({
+  params: z.object({
+    inviteId: z.string({
+      required_error: "invite ID is required",
     }),
   }),
 });

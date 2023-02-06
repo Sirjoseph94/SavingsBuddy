@@ -6,7 +6,7 @@ import { amount } from "../validationSchema/account";
 
 const router = Router();
 
-router.post("/create", auth, Controller.create);
-router.post("/update", auth, validate(amount), Controller.update);
+router.post("/", auth, Controller.create);
+router.patch("/", auth, validate(amount), Controller.update);
 
 export default router;

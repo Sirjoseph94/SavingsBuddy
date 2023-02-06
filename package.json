@@ -12,7 +12,7 @@
     "watch": "parcel watch",
     "build": "parcel build",
     "deploy": "yarn build && npx prisma db push",
-    "dev": "nodemon --esm  src/index.ts"
+    "dev": "nodemon  dist/index.js"
   },
   "dependencies": {
     "@prisma/client": "^4.9.0",
