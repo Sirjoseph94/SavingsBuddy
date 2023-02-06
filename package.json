@@ -2,7 +2,8 @@
   "name": "saving-buddies",
   "version": "1.0.0",
   "description": "SavingBuddies is an app to encourages money saving culture amongst friends.",
-  "main": "index.js",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
   "author": "SirJoseph94",
   "license": "MIT",
   "private": false,
@@ -10,8 +11,9 @@
     "node": "~18.14.0"
   },
   "scripts": {
-    "start": "node built/index.js",
-    "build": "esbuild src/index.ts --platform=node --bundle --minify --loader=ts --outfile=built/index.js",
+    "start": "node dist/index.js",
+    "watch": "parcel watch",
+    "build": "parcel build",
     "dev": "nodemon --esm  src/index.ts"
   },
   "dependencies": {
@@ -23,6 +25,7 @@
     "helmet": "^6.0.1",
     "jsonwebtoken": "^9.0.0",
     "nodemailer": "^6.9.1",
+    "morgan": "^1.10.0",
     "zod": "^3.20.2"
   },
   "devDependencies": {
@@ -33,10 +36,11 @@
     "@types/jsonwebtoken": "^9.0.1",
     "@types/morgan": "^1.9.4",
     "@types/nodemailer": "^6.4.7",
+    "cli-readme-gen": "^1.1.2",
     "debug": "^4.3.4",
-    "esbuild": "^0.17.5",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
+    "parcel": "^2.8.3",
     "prisma": "^4.9.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
