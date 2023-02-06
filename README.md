@@ -8,16 +8,6 @@
   [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
   <hr>
 
-## Table of Contents
-  - [Installation](#Installation)
-  - [Description](#description)
-  - [Usage](#usage)
-  - [Dependencies](#dependencies)
-  - [Credits](#credits)
-  - [License](#license)
-  - [Questions](#questions)
-
-
   
 ## Installation
 - Rename `example.env` to `.env` and fill the proper values
