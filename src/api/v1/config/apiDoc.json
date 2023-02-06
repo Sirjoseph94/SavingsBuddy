@@ -1,0 +1,381 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SavingsBuddy",
+    "description": "# Introduction\nSimple personal finance API that encourages saving culture among a group of friends(buddies)\n\n# Overview\nREST API built with ExpressJS and TypeScript. Feel free to contribute \n[Github Repo](https://github.com/Sirjoseph94/SavingsBuddy)\n\n# Authentication\nJWT Bearer Token\n\n# Error Codes\n- 4xx - Bad Request Errors\n- 5xx - Server Errors\n",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://https://savingsbuddy.up.railway.app/api"
+    },
+    {
+      "url": "http://localhost:9000/api"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "user"
+    },
+    {
+      "name": "account"
+    },
+    {
+      "name": "invite"
+    },
+    {
+      "name": "plan"
+    }
+  ],
+  "paths": {
+    "/v1/user/signin": {
+      "post": {
+        "tags": ["user"],
+        "summary": "SIgn in",
+        "description": "User signin with valid email and password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "name@mail.com",
+                  "password": "passme123"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful response",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "status": "success",
+                  "message": {
+                    "token": "JWT Token"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/signin": {
+      "post": {
+        "tags": ["user"],
+        "summary": "SIgn up",
+        "description": "User signin with valid email and password",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "type": "string",
+                "example": "\"{\\n\\\"email\\\":\\\"erojoseph94@gmail.com\\\",\\n  \\\"password\\\": \\\"passme123\\\",\\n}\""
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful response",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "status": "success",
+                  "message": {
+                    "token": "JWT token",
+                    "verified": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/user/verify/{token}": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Verify email",
+        "requestBody": {
+          "content": {}
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "JWT verification token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/v1/account/": {
+      "post": {
+        "tags": ["account"],
+        "summary": "create account",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["account"],
+        "summary": "fund account",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "amount": 5000
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/v1/invite/": {
+      "get": {
+        "tags": ["invite"],
+        "summary": "All invites",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["invite"],
+        "summary": "invite buddy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "buddyEmail": "buddy@mail.com",
+                  "planId": "enter planId"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/v1/invite/{inviteId}": {
+      "get": {
+        "tags": ["invite"],
+        "summary": "view invite",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "inviteId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["invite"],
+        "summary": "confirm invite",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "feedback": true
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "inviteId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "enter invite Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/v1/plans/": {
+      "post": {
+        "tags": ["plan"],
+        "summary": "create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "Plan name",
+                  "target": 500000,
+                  "saving_frequency": "MONTHLY",
+                  "start_date": "2023-04-30T02:15:12.356Z",
+                  "end_date": "2024-04-30T02:15:12.356Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["plan"],
+        "summary": "view plans",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
