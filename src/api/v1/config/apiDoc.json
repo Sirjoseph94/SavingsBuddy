@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://https://savingsbuddy.up.railway.app/api"
+      "url": "https://savingsbuddy.up.railway.app/api"
     },
     {
       "url": "http://localhost:9000/api"
