@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "buildCommand": "yarn deploy && yarn start",
   "builds": [
     {
       "src": "dist/index.js",
